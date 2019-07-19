@@ -1,0 +1,9 @@
+/* src/Components/Footer/style.css */
+
+  
+/* - - - -  class  - - - - - */  
+.card {
+   margin: 0 auto; /* Added */
+   float: none; /* Added */
+   margin-bottom: 10px; /* Added */
+}
