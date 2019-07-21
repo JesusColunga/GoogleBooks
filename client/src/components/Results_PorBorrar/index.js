@@ -1,60 +1,15 @@
 import React, { Component } from "react";
-import "./style.css";
-import axios      from "axios";
-import SearchArea from "../components/SearchArea";
-import API        from "../utils/API";
+import "./style.css"
 
-class Search extends Component {
-  state = {
-    books: [],
-    subject: ""
-  };
-
-  /* ================================================================== */
-  saveBook = bookData => {
-     API.saveBook (bookData)
-      .then (res => alert("Book has been saved.") )
-      .catch (err => console.log ("err"));
-  }
-  /* ----------------------------------- */
-  loadGoogleBooks = () => {
-   axios
-   .get("https://www.googleapis.com/books/v1/volumes?q=quilting")
-   .then(res => this.setState( {books: res.data.items} ) )
-   .catch(err => console.log ("Error getting Google Books:", err));
-  };
-  /* ----------------------------------- */
-  handleInputChange = event => {
-   const { name, value } = event.target;
-   this.setState({
-     [name]: value
-   });
-  };
-  /* ----------------------------------- */
-  handleFormSubmit = event => {
-   event.preventDefault();
-   if (this.state.subject) {
-      axios
-      .get("https://www.googleapis.com/books/v1/volumes?q=" + this.state.subject)
-      .then(res => this.setState( {books: res.data.items} ) )
-      .catch(err => console.log ("Error getting Google Books:", err));
+class Results extends Component {
+   constructor(props) {
+      super(props);
    }
-  };
-  /* ================================================================== */
 
-  render() {
-    return (
-       <div>
-          <SearchArea 
-            handleInputChange={this.handleInputChange} 
-            handleFormSubmit={this.handleFormSubmit}
-          />
-
-          {this.state.books.length ? 
-            (
-            //--------------------------------------------
-            <div>
-               {this.state.books.map( book => {
+   render() {
+      return (
+         <div key="books">
+            {this.props.books.map( (book, index) => {
                
                   var authosStr = "";
                   if (book.volumeInfo.hasOwnProperty("authors")) {
@@ -89,6 +44,7 @@ class Search extends Component {
                         </div>
                         <div className="col-md-8">
                            <div className="card-body">
+                              {book.id}
                               <a href={link} target="_blank" rel="noopener noreferrer">
                                  <h5 className="card-title"> {book.volumeInfo.title} </h5>
                               </a>
@@ -97,7 +53,7 @@ class Search extends Component {
                               <p className="card-text btns">
                                  <small> 
                                     <button className="badge badge-pill badge-warning"
-                                          onClick={ () => this.saveBook(bookData) }
+                                          onClick={ this.props.saveBook(bookData) }
                                     >
                                        Save
                                     </button>
@@ -109,15 +65,10 @@ class Search extends Component {
                   </div>
                   )
                
-               })}
-            </div>
-            //--------------------------------------------
-            ) : 
-            ( <h5> No results to display </h5> )
-          }
-       </div>
-    );
-  }
+            })}
+         </div>
+      );
+   }
 }
 
-export default Search;
+export default Results;

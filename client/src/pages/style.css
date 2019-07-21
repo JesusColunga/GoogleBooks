@@ -1,5 +1,32 @@
-  
+h5 {
+   text-align: center;
+}
+
 /* - - - -  class  - - - - - */  
+
 .card {
-   max-width: 540px;
+   max-width: 60%;
+   margin: 0 auto;
+   float: none;
+   margin-bottom: 10px;
+}
+
+.descrip {
+   font-size: 0.8em;
+}
+
+.btns {
+   text-align: right;
+}
+/* - - -  Media Queries  - - - */
+@media only screen and (max-width: 980px) {   /* PC: 110 - 125% zoom en Chrome */
+}
+
+@media only screen and (max-width: 768px) {   /* Aplica a mi celular horizontal y ipad vertical. PC: 150% zoom en Chrome  */
+}
+
+@media only screen and (max-width: 640px) {   /* Aplica a mi celular vertical. PC: 125% - 500% zoom en Chrome  */
+   .card {
+      max-width: 90%;
+   }
 }
